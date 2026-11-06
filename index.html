@@ -7,7 +7,7 @@
   <meta name="description" content="Lumi: la app que une el seguimiento de tu ciclo menstrual con tu agenda diaria.">
   <title>Lumi – Tu ciclo, tu tiempo, en un solo lugar</title>
 
-  <link rel="icon" type="image/svg+xml" href="assets/img/logo-icono.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
 
   <!-- Tipografías del Style Guide (Figma): Delius y Libre Baskerville para el logo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,75 +18,77 @@
   <link rel="stylesheet" href="css/base.css">
 
   <!-- Un archivo CSS por sección, así cada parte se trabaja sin pisar a las demás -->
-  <link rel="stylesheet" href="css/secciones/header.css">
+  <link rel="stylesheet" href="css/sections/header.css">
   <!-- Aquí cada parte agrega su <link> de CSS -->
-  <link rel="stylesheet" href="css/secciones/footer.css">
+  <link rel="stylesheet" href="css/sections/footer.css">
 </head>
 
 <body>
-  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <a class="skip-link" href="#main-content">Saltar al contenido</a>
 
   <!-- =====================================================
        PARTE 1 · HEADER Y NAVEGACIÓN
-       Archivos: css/secciones/header.css · js/menu.js
+       Archivos: css/sections/header.css · js/menu.js
        ===================================================== -->
   <header class="header">
-    <div class="contenedor header__barra">
-      <a class="logo" href="#inicio" aria-label="Lumi, ir al inicio">
-        <img src="assets/img/logo-icono.svg" alt="" width="44" height="44">
-        <span class="logo__texto">LUMI</span>
+    <div class="container header__bar">
+      <a class="logo" href="#home" aria-label="Lumi, ir al inicio">
+        <img src="assets/images/logo-icon.svg" alt="" width="44" height="44">
+        <span class="logo__text">LUMI</span>
       </a>
 
-      <button class="header__menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal">
-        <span class="visualmente-oculto">Abrir menú</span>
-        <span class="header__menu-icono" aria-hidden="true"></span>
+      <button class="header__menu-button" type="button" aria-expanded="false" aria-controls="main-menu">
+        <span class="visually-hidden">Abrir menú</span>
+        <span class="header__menu-icon" aria-hidden="true"></span>
       </button>
 
-      <nav class="header__nav" id="menu-principal" aria-label="Menú principal">
-        <ul class="header__lista">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#funciones">Funciones</a></li>
-          <li><a href="#como-funciona">Cómo funciona</a></li>
-          <li><a href="#planes">Planes</a></li>
-          <li><a href="#testimonios">Testimonios</a></li>
-          <li><a href="#equipo">Nosotros</a></li>
-          <li><a href="#preguntas">Preguntas</a></li>
+      <nav class="header__nav" id="main-menu" aria-label="Menú principal">
+        <ul class="header__list">
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#features">Funciones</a></li>
+          <li><a href="#how-it-works">Cómo funciona</a></li>
+          <li><a href="#pricing">Planes</a></li>
+          <li><a href="#testimonials">Testimonios</a></li>
+          <li><a href="#about-us">Nosotros</a></li>
+          <li><a href="#faq">Preguntas</a></li>
         </ul>
-        <a class="boton boton--primario" href="#descargar">Descargar Lumi</a>
+        <a class="button button--primary" href="#download">Descargar Lumi</a>
       </nav>
     </div>
   </header>
 
-  <main id="contenido">
+  <main id="main-content">
 
-    <!-- Aquí van las secciones de las partes 2 a 7, en el orden del menú -->
+    <!-- Aquí van las secciones de las partes 2 a 7, en el orden del menú.
+         Usen estos id para que el menú funcione:
+         home · features · how-it-works · pricing · testimonials · about-us · faq · download -->
 
   </main>
 
   <!-- =====================================================
        PARTE 1 · FOOTER
-       Archivo: css/secciones/footer.css
+       Archivo: css/sections/footer.css
        ===================================================== -->
   <footer class="footer">
-    <div class="contenedor">
+    <div class="container">
       <div class="footer__grid">
         <div>
-          <a class="logo" href="#inicio" aria-label="Lumi, ir al inicio">
-            <img src="assets/img/logo-icono.svg" alt="" width="36" height="36">
-            <span class="logo__texto logo__texto--chico">LUMI</span>
+          <a class="logo" href="#home" aria-label="Lumi, ir al inicio">
+            <img src="assets/images/logo-icon.svg" alt="" width="36" height="36">
+            <span class="logo__text logo__text--small">LUMI</span>
           </a>
           <p>Tu ciclo, tu tiempo, en un solo lugar.</p>
         </div>
         <nav aria-label="Producto">
-          <h2 class="footer__titulo">Producto</h2>
+          <h2 class="footer__title">Producto</h2>
           <ul>
-            <li><a href="#funciones">Funciones</a></li>
-            <li><a href="#planes">Planes</a></li>
-            <li><a href="#descargar">Descargar</a></li>
+            <li><a href="#features">Funciones</a></li>
+            <li><a href="#pricing">Planes</a></li>
+            <li><a href="#download">Descargar</a></li>
           </ul>
         </nav>
         <nav aria-label="Legal">
-          <h2 class="footer__titulo">Legal</h2>
+          <h2 class="footer__title">Legal</h2>
           <ul>
             <li><a href="#">Privacidad</a></li>
             <li><a href="#">Términos</a></li>
@@ -94,7 +96,7 @@
           </ul>
         </nav>
         <div>
-          <h2 class="footer__titulo">Contacto</h2>
+          <h2 class="footer__title">Contacto</h2>
           <ul>
             <li><a href="mailto:hola@lumi.pe">hola@lumi.pe</a></li>
             <li><a href="#">Instagram</a></li>
