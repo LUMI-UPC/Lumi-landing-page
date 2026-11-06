@@ -1,4 +1,4 @@
-/* PARTE 1 · Footer */
+/* Footer */
 .footer { background: var(--color-pink); padding: 56px 0 24px; }
 .footer__grid { display: grid; gap: 32px; grid-template-columns: 1fr; }
 .footer__title { font-size: 1rem; margin-bottom: 8px; }
