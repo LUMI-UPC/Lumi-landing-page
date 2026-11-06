@@ -1,4 +1,4 @@
-// PARTE 1 · Abre y cierra el menú en celular
+// Abre y cierra el menú en celular
 (function () {
   var menuButton = document.querySelector('.header__menu-button');
   var menu = document.getElementById('main-menu');
