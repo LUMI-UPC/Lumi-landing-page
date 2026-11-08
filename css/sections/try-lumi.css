@@ -1,10 +1,5 @@
 /* Prueba Lumi: demo interactiva */
 .try-lumi__intro { max-width: 760px; margin: 0 auto 24px; text-align: center; }
-.try-lumi__stories { max-width: 1000px; margin: 0 auto 24px; background: var(--color-background); border: 1px solid var(--color-border); border-radius: 16px; padding: 12px 20px; }
-.try-lumi__stories summary { cursor: pointer; font-weight: bold; min-height: 32px; display: flex; align-items: center; }
-.try-lumi__table-wrap { overflow-x: auto; margin-top: 12px; }
-.try-lumi__table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-.try-lumi__table th, .try-lumi__table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
 
 /* Lo oculto con el atributo hidden no se muestra aunque tenga display propio */
 .app [hidden] { display: none !important; }
@@ -65,7 +60,6 @@
 /* Tarjetas de la app */
 .app-card { background: var(--color-white); border: 1px solid var(--color-border); border-radius: 20px; padding: 18px; min-width: 0; }
 .app-card__title { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0 0 10px; font-size: 1.1rem; }
-.app-card__hu { font-size: 0.7rem; color: var(--color-text-secondary); background: var(--color-background); border-radius: 999px; padding: 2px 8px; white-space: nowrap; }
 .app-card--phase { background: linear-gradient(150deg, var(--color-lilac), var(--color-white) 70%); }
 .app-card--warning { background: #fff0f3; border-color: #f29bab; }
 .app-phase__name { font-size: 1.6rem; color: var(--color-accent); margin: 0; }
