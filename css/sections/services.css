@@ -1,0 +1,124 @@
+/* =====================================================
+   SERVICES · agenda unificada, importancia, reprogramación
+   y estado de ánimo (US-18 a US-22, US-47)
+   Usa las variables y piezas de css/base.css
+   ===================================================== */
+.services__eyebrow { text-align: center; margin-bottom: 8px; }
+
+/* Semana de ejemplo */
+.services__week { margin-bottom: 32px; }
+.services__week-title { font-size: 1.125rem; text-align: center; }
+.services__days {
+  list-style: none; margin: 0; padding: 0 0 4px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+.services__day {
+  display: flex; flex-direction: column; gap: 2px; text-align: center;
+  padding: 8px 4px; border-radius: 14px; border: 1px solid var(--color-border);
+  font-size: 0.875rem;
+}
+.services__day-name { text-transform: capitalize; }
+.services__day-energy { font-size: 0.75rem; }
+.services__day--low { background: var(--color-pink); }
+.services__day--medium { background: var(--color-lilac); }
+.services__day--high { background: var(--color-yellow); }
+
+/* Tarjetas de herramientas */
+.services__tools { margin-bottom: 24px; }
+.services__card { display: flex; flex-direction: column; }
+.services__card code {
+  font-size: 0.85em; background: rgba(255, 255, 255, 0.7); padding: 1px 4px; border-radius: 4px;
+}
+
+/* Formularios */
+.services__form { display: flex; flex-direction: column; gap: 8px; }
+.services__label { font-size: 0.95rem; }
+.services__input {
+  width: 100%; min-height: 44px; padding: 8px 12px;
+  font-family: var(--font-body); font-size: 1rem; color: var(--color-text);
+  background: var(--color-white); border: 1px solid #c9a9b2; border-radius: 12px;
+}
+.services__input[aria-invalid="true"] { border-color: var(--color-accent); border-width: 2px; }
+.services__file { padding: 8px; }
+.services__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.services__fieldset { border: none; margin: 4px 0; padding: 0; min-width: 0; }
+.services__options { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.services__option {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px;
+  background: var(--color-white); border: 1px solid var(--color-border); border-radius: 22px; cursor: pointer;
+}
+.services__option--block { display: flex; width: 100%; padding: 8px 14px; border-radius: 14px; }
+.services__option:has(input:checked) { border-color: var(--color-accent); box-shadow: inset 0 0 0 1px var(--color-accent); }
+.services__option input, .services__mood-option input { accent-color: var(--color-accent); width: 18px; height: 18px; margin: 0; flex-shrink: 0; }
+.services__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.services__actions .button, .services__form > .button { width: 100%; }
+.services__form .button:disabled { opacity: 0.6; cursor: wait; }
+
+/* Mensajes */
+.services__status { min-height: 1.5em; margin: 12px 0 0; font-size: 0.95rem; color: var(--color-text); }
+.services__status:empty { margin: 0; min-height: 0; }
+.services__status--error { color: #a3264f; }
+
+/* Agenda */
+.services__results { align-items: start; }
+.services__list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.services__item {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 12px 12px 16px; border: 1px solid var(--color-border); border-left: 6px solid var(--color-lilac);
+  border-radius: 14px; background: var(--color-background);
+}
+.services__item[data-importance="high"] { border-left-color: var(--color-accent); }
+.services__item[data-importance="medium"] { border-left-color: var(--color-primary); }
+.services__item[data-importance="low"] { border-left-color: #c9a9b2; }
+.services__item-info { min-width: 0; }
+.services__item-info p { margin: 0; }
+.card .services__item-when { font-size: 0.85rem; color: var(--color-text-secondary); text-transform: capitalize; }
+.card .services__item-name { color: var(--color-text); font-size: 1.05rem; }
+.services__energy, .services__source {
+  display: inline-block; font-size: 0.75rem; padding: 1px 8px; border-radius: 10px; text-transform: none;
+}
+.services__energy { margin-left: 6px; color: var(--color-text); }
+.services__energy--low { background: var(--color-pink); }
+.services__energy--medium { background: var(--color-lilac); }
+.services__energy--high { background: var(--color-yellow); }
+.services__source { margin-top: 4px; background: var(--color-white); border: 1px solid var(--color-border); }
+.services__item-importance { flex-shrink: 0; }
+.services__select { width: auto; min-width: 96px; }
+
+/* Columna derecha */
+.services__side { display: flex; flex-direction: column; gap: 24px; }
+.services__choices { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.card .services__ok { color: var(--color-text); }
+
+/* Estado de ánimo */
+.services__moods { display: flex; flex-wrap: wrap; gap: 8px; }
+.services__mood-option {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px;
+  background: var(--color-white); border: 1px solid var(--color-border); border-radius: 22px; cursor: pointer;
+}
+.services__mood-option:has(input:checked) { border-color: var(--color-accent); box-shadow: inset 0 0 0 1px var(--color-accent); }
+.services__subheading { font-size: 1rem; font-weight: 400; margin: 20px 0 8px; }
+.services__history { list-style: none; margin: 0; padding: 0; }
+.services__history-item {
+  display: flex; justify-content: space-between; gap: 12px; padding: 8px 0;
+  border-top: 1px solid rgba(74, 63, 69, 0.15);
+}
+.services__history-date { text-transform: capitalize; }
+
+/* Foco visible para campos (base.css solo cubre a y button) */
+.services input:focus-visible, .services select:focus-visible {
+  outline: 3px solid var(--color-accent); outline-offset: 2px;
+}
+.services h3[tabindex="-1"]:focus { outline: none; }
+
+/* Escritorio */
+@media (min-width: 768px) {
+  .services__days { grid-template-columns: repeat(7, 1fr); }
+}
+@media (min-width: 1024px) {
+  .services__results { grid-template-columns: 3fr 2fr; }
+}
+
+/* Contraste AA: el texto rosa del botón outline no alcanza 4.5:1 sobre tarjetas de color */
+.services .card--pink .button--outline,
+.services .card--lilac .button--outline { color: var(--color-text); background: var(--color-white); }
