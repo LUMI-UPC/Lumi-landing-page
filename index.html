@@ -19,6 +19,7 @@
 
   <!-- Estilos por sección -->
   <link rel="stylesheet" href="css/sections/header.css">
+  <link rel="stylesheet" href="css/sections/hero.css">
   <link rel="stylesheet" href="css/sections/try-lumi.css">
   <link rel="stylesheet" href="css/sections/footer.css">
 </head>
@@ -57,6 +58,41 @@
   <main id="main-content">
 
     <!-- ids del menú: home · features · try-lumi · pricing · testimonials · about-us · faq · download -->
+
+    <!-- Hero -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+        <div>
+          <p class="eyebrow">Salud femenina y productividad</p>
+          <h1 class="hero__title" id="hero-title">Tu ciclo, tu tiempo, en un solo lugar</h1>
+          <p class="hero__description">
+            Lumi une el seguimiento de tu ciclo menstrual con tus clases, reuniones y tareas del hogar
+            para que planifiques cada semana según tu energía real.
+          </p>
+          <div class="hero__actions" id="download">
+            <a class="button button--dark" href="#try-lumi" aria-label="Descargar Lumi en App Store (próximamente)">App Store</a>
+            <a class="button button--dark" href="#try-lumi" aria-label="Descargar Lumi en Google Play (próximamente)">Google Play</a>
+            <a class="button button--primary" href="#try-lumi">Probar la demo</a>
+          </div>
+        </div>
+
+        <div class="phone" role="img" aria-label="Vista previa de la pantalla de inicio de Lumi">
+          <p class="phone__greeting">Hola, Sofía</p>
+          <div class="phone__block phone__block--lilac">
+            <span>Fase folicular · Día 9</span>
+            <strong>Energía alta</strong>
+          </div>
+          <div class="phone__block phone__block--pink">
+            <span>Hoy</span>
+            <strong>Clase de Cálculo · 8:00</strong>
+            <strong>Entrega de informe · 18:00</strong>
+          </div>
+          <div class="phone__block phone__block--yellow">
+            <span>Tu periodo llegaría en 19 días</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Prueba Lumi: demo interactiva con 35 HU del core -->
     <section class="section section--white try-lumi" id="try-lumi" aria-labelledby="try-lumi-title">
