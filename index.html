@@ -24,87 +24,66 @@
 </head>
 
 <body>
-  <a class="saltar" href="#contenido">Saltar al contenido</a>
-
-  <!-- =====================================================
-       PARTE 1 · HEADER Y NAVEGACIÓN
-       Archivos: css/secciones/header.css · js/menu.js
-       ===================================================== -->
-  <header class="header">
-    <div class="contenedor header__barra">
-      <a class="logo" href="#inicio" aria-label="Lumi, ir al inicio">
-        <img src="assets/img/logo-icono.svg" alt="" width="44" height="44">
-        <span class="logo__texto">LUMI</span>
-      </a>
-
-      <button class="header__menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal">
-        <span class="visualmente-oculto">Abrir menú</span>
-        <span class="header__menu-icono" aria-hidden="true"></span>
-      </button>
-
-      <nav class="header__nav" id="menu-principal" aria-label="Menú principal">
-        <ul class="header__lista">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#funciones">Funciones</a></li>
-          <li><a href="#como-funciona">Cómo funciona</a></li>
-          <li><a href="#planes">Planes</a></li>
-          <li><a href="#testimonios">Testimonios</a></li>
-          <li><a href="#equipo">Nosotros</a></li>
-          <li><a href="#preguntas">Preguntas</a></li>
-        </ul>
-        <a class="boton boton--primario" href="#descargar">Descargar Lumi</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="contenido">
-
-    <!-- Aquí van las secciones de las partes 2 a 7, en el orden del menú -->
-
-  </main>
-
-  <!-- =====================================================
-       PARTE 1 · FOOTER
-       Archivo: css/secciones/footer.css
-       ===================================================== -->
-  <footer class="footer">
-    <div class="contenedor">
-      <div class="footer__grid">
-        <div>
-          <a class="logo" href="#inicio" aria-label="Lumi, ir al inicio">
-            <img src="assets/img/logo-icono.svg" alt="" width="36" height="36">
-            <span class="logo__texto logo__texto--chico">LUMI</span>
-          </a>
-          <p>Tu ciclo, tu tiempo, en un solo lugar.</p>
-        </div>
-        <nav aria-label="Producto">
-          <h2 class="footer__titulo">Producto</h2>
-          <ul>
-            <li><a href="#funciones">Funciones</a></li>
-            <li><a href="#planes">Planes</a></li>
-            <li><a href="#descargar">Descargar</a></li>
-          </ul>
-        </nav>
-        <nav aria-label="Legal">
-          <h2 class="footer__titulo">Legal</h2>
-          <ul>
-            <li><a href="#">Privacidad</a></li>
-            <li><a href="#">Términos</a></li>
-            <li><a href="#">Cookies</a></li>
-          </ul>
-        </nav>
-        <div>
-          <h2 class="footer__titulo">Contacto</h2>
-          <ul>
-            <li><a href="mailto:hola@lumi.pe">hola@lumi.pe</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">TikTok</a></li>
-          </ul>
+  
+    <!-- =====================================================
+         PARTE 3 · PROBLEMA
+         Archivo: css/secciones/problema.css
+         ===================================================== -->
+    <section class="seccion problema" id="problema" aria-labelledby="problema-titulo">
+      <div class="contenedor">
+        <h2 class="seccion__titulo" id="problema-titulo">¿Te pasa que tu periodo llega justo el día de tu examen?</h2>
+        <p class="seccion__subtitulo">
+          Lo que encontramos en nuestras entrevistas con universitarias, profesionales y madres de familia:
+        </p>
+        <div class="grid-3">
+          <article class="tarjeta">
+            <span class="tarjeta__icono" aria-hidden="true"></span>
+            <h3>Apps separadas</h3>
+            <p>Usan una app para el ciclo y otra para su agenda, y ninguna se comunica.</p>
+          </article>
+          <article class="tarjeta">
+            <span class="tarjeta__icono" aria-hidden="true"></span>
+            <h3>Imprevistos</h3>
+            <p>Los cólicos o la baja energía llegan el día de una actividad importante.</p>
+          </article>
+          <article class="tarjeta">
+            <span class="tarjeta__icono" aria-hidden="true"></span>
+            <h3>Carga mental</h3>
+            <p>Recordar fechas y reorganizar todo genera estrés y baja productividad.</p>
+          </article>
         </div>
       </div>
-      <p class="footer__copy">© 2026 6Bits · Lumi. Proyecto académico UPC – IHC y Tecnologías Móviles.</p>
-    </div>
-  </footer>
+    </section>
+
+    <!-- =====================================================
+         PARTE 3 · FUNCIONALIDADES
+         Archivo: css/secciones/funcionalidades.css
+         ===================================================== -->
+    <section class="seccion seccion--blanca funciones" id="funciones" aria-labelledby="funciones-titulo">
+      <div class="contenedor">
+        <h2 class="seccion__titulo" id="funciones-titulo">Todo lo que necesitas, en una sola app</h2>
+        <div class="grid-2">
+          <article class="tarjeta tarjeta--rosa">
+            <h3>Calendario unificado</h3>
+            <p>Tu periodo estimado junto a tus clases, reuniones y tareas.</p>
+          </article>
+          <article class="tarjeta tarjeta--lila">
+            <h3>Alertas predictivas</h3>
+            <p>Te avisamos cuando una actividad importante coincide con días de baja energía.</p>
+          </article>
+          <article class="tarjeta tarjeta--amarilla">
+            <h3>Reprogramación inteligente</h3>
+            <p>Lumi te sugiere mejores fechas para tus actividades críticas.</p>
+          </article>
+          <article class="tarjeta tarjeta--rosa">
+            <h3>Privacidad total</h3>
+            <p>Bloqueo con PIN o huella, modo discreto y control de tus datos.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  
 
   <script src="js/menu.js"></script>
   <!-- Aquí cada parte agrega su <script>, si tiene uno -->
