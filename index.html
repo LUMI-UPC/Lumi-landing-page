@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="css/sections/hero.css">
   <link rel="stylesheet" href="css/sections/try-lumi.css">
   <link rel="stylesheet" href="css/sections/testimonials.css">
+  <link rel="stylesheet" href="css/sections/about-us.css">
+  <link rel="stylesheet" href="css/sections/faq.css">
   <link rel="stylesheet" href="css/sections/footer.css">
 </head>
 
@@ -242,6 +244,84 @@
       </div>
     </section>
 
+    <!-- Nosotros: equipo 6Bits y video About-the-Team -->
+    <section class="section about-us" id="about-us" aria-labelledby="about-us-title">
+      <div class="container">
+        <h2 class="section__title" id="about-us-title">Somos 6Bits</h2>
+        <p class="section__subtitle">
+          Estudiantes de Ingeniería de Software e Ingeniería de Sistemas de Información de la UPC que queremos
+          que ninguna mujer tenga que elegir entre su salud y sus metas.
+        </p>
+
+        <div class="about-us__grid">
+          <div class="about-us__text">
+            <h3>Misión</h3>
+            <p>Ayudar a las mujeres a organizar su vida diaria tomando en cuenta su ciclo menstrual.</p>
+            <h3>Visión</h3>
+            <p>Ser la app de referencia en Latinoamérica que une salud femenina y productividad.</p>
+          </div>
+          <figure class="video">
+            <!-- Reemplazar por el iframe de YouTube del video About-the-Team -->
+            <div class="video__frame">
+              <span class="video__play" aria-hidden="true"></span>
+              <p>Video About-the-Team · próximamente</p>
+            </div>
+            <figcaption>Conoce al equipo</figcaption>
+          </figure>
+        </div>
+
+        <ul class="team">
+          <li class="card team__member"><span class="team__avatar" aria-hidden="true">CA</span><p class="team__name">Cielo Atencio</p><p class="team__role">Team Leader · Ing. de Software</p></li>
+          <li class="card team__member"><span class="team__avatar" aria-hidden="true">DD</span><p class="team__name">Diego Davalos</p><p class="team__role">Ing. de Software</p></li>
+          <li class="card team__member"><span class="team__avatar" aria-hidden="true">CA</span><p class="team__name">Carlos Apaza</p><p class="team__role">Ing. de Software</p></li>
+          <li class="card team__member"><span class="team__avatar" aria-hidden="true">JL</span><p class="team__name">Jesús López</p><p class="team__role">Ing. de Software</p></li>
+          <li class="card team__member"><span class="team__avatar" aria-hidden="true">GL</span><p class="team__name">Gabriel Leon</p><p class="team__role">Ing. de Sistemas de Información</p></li>
+          <li class="card team__member"><span class="team__avatar" aria-hidden="true">JC</span><p class="team__name">Jose Collantes</p><p class="team__role">Ing. de Sistemas de Información</p></li>
+          <li class="card team__member"><span class="team__avatar" aria-hidden="true">RR</span><p class="team__name">Renato Ramirez</p><p class="team__role">Ing. de Sistemas de Información</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Preguntas frecuentes -->
+    <section class="section faq" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 class="section__title" id="faq-title">Preguntas frecuentes</h2>
+
+        <div class="faq__item">
+          <h3>
+            <button class="faq__question" type="button" aria-expanded="true" aria-controls="faq-1">¿Mis datos de salud están seguros?</button>
+          </h3>
+          <div class="faq__answer" id="faq-1">
+            <p>Sí. Tus datos se guardan cifrados, puedes proteger la app con PIN o huella, usar el modo discreto y eliminar tu cuenta cuando quieras.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3>
+            <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-2">¿Puedo conectar mi calendario de la universidad o del trabajo?</button>
+          </h3>
+          <div class="faq__answer" id="faq-2" hidden>
+            <p>Sí. Puedes vincular Google Calendar u Outlook, o importar tu horario de clases desde un archivo CSV.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3>
+            <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-3">¿Qué pasa si mi ciclo es irregular?</button>
+          </h3>
+          <div class="faq__answer" id="faq-3" hidden>
+            <p>Lumi aprende de tus registros y ajusta la predicción a tu promedio real. Si tu periodo se retrasa, te avisa.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3>
+            <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-4">¿Lumi reemplaza a un médico?</button>
+          </h3>
+          <div class="faq__answer" id="faq-4" hidden>
+            <p>No. Lumi te ayuda a organizarte, pero no da diagnósticos. Ante cualquier molestia o retraso prolongado, consulta a un profesional de salud.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Footer -->
@@ -287,6 +367,7 @@
 
   <script src="js/menu.js"></script>
   <script src="js/try-lumi.js"></script>
+  <script src="js/faq.js"></script>
 </body>
 
 </html>
