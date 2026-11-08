@@ -20,6 +20,7 @@
   <!-- Estilos por sección -->
   <link rel="stylesheet" href="css/sections/header.css">
   <link rel="stylesheet" href="css/sections/footer.css">
+  <link rel="stylesheet" href="css/sections/services.css">
 </head>
 
 <body>
@@ -56,6 +57,138 @@
   <main id="main-content">
 
     <!-- ids del menú: home · features · how-it-works · pricing · testimonials · about-us · faq · download -->
+
+    <!-- Servicios: agenda unificada, importancia, reprogramación y estado de ánimo
+         HU: US-18 · US-19 · US-20 · US-21 · US-22 · US-47
+         Estilos: css/sections/services.css · Interacción: js/services.js -->
+    <section class="section section--white services" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <p class="eyebrow services__eyebrow">Servicios</p>
+        <h2 class="section__title" id="services-title">Tu agenda y tu ciclo, trabajando juntos</h2>
+        <p class="section__subtitle">
+          Reúne tus clases, reuniones y tareas en un solo lugar, marca lo que más importa
+          y deja que Lumi te avise cuando conviene mover algo. Pruébalo aquí mismo.
+        </p>
+
+        <!-- Semana de ejemplo con el nivel de energía de cada día -->
+        <div class="services__week" aria-labelledby="week-title">
+          <h3 class="services__week-title" id="week-title">Tu semana de ejemplo</h3>
+          <ol class="services__days" id="services-days"></ol>
+        </div>
+
+        <!-- Formas de llenar la agenda -->
+        <ul class="grid-3 services__tools">
+          <!-- US-19 -->
+          <li class="card card--pink services__card">
+            <h3 id="sync-title">Conecta tu calendario</h3>
+            <p>Trae tus compromisos de Google Calendar u Outlook sin copiarlos uno por uno.</p>
+            <form class="services__form" id="sync-form" aria-labelledby="sync-title">
+              <label class="services__label" for="sync-calendar">Calendario a importar</label>
+              <select class="services__input" id="sync-calendar" name="calendar">
+                <option value="work">Trabajo</option>
+                <option value="university">Universidad</option>
+              </select>
+              <div class="services__actions">
+                <button class="button button--dark" type="submit" name="provider" value="google">Conectar Google Calendar</button>
+                <button class="button button--outline" type="submit" name="provider" value="outlook">Conectar Outlook</button>
+              </div>
+            </form>
+            <p class="services__status" id="sync-status" role="status"></p>
+          </li>
+
+          <!-- US-20 -->
+          <li class="card card--lilac services__card">
+            <h3 id="csv-title">Importa tu horario</h3>
+            <p>Sube un archivo CSV con tus clases o exámenes. Columnas: <code>nombre, fecha, inicio, fin</code>.</p>
+            <div class="services__form">
+              <label class="services__label" for="csv-file">Archivo CSV</label>
+              <input class="services__input services__file" type="file" id="csv-file" accept=".csv,text/csv" aria-describedby="csv-status">
+              <div class="services__actions">
+                <button class="button button--dark" type="button" id="csv-sample">Usar horario de ejemplo</button>
+                <button class="button button--outline" type="button" id="csv-download">Descargar plantilla</button>
+              </div>
+            </div>
+            <p class="services__status" id="csv-status" role="status"></p>
+          </li>
+
+          <!-- US-21 y US-22 -->
+          <li class="card card--yellow services__card">
+            <h3 id="create-title">Crea una actividad</h3>
+            <p>Añade un evento o tarea y dale un nivel de importancia.</p>
+            <form class="services__form" id="create-form" aria-labelledby="create-title" novalidate>
+              <label class="services__label" for="create-name">Nombre</label>
+              <input class="services__input" type="text" id="create-name" name="name" maxlength="60" required placeholder="Ej: Examen de Cálculo">
+
+              <label class="services__label" for="create-date">Fecha</label>
+              <input class="services__input" type="date" id="create-date" name="date" required>
+
+              <div class="services__row">
+                <div>
+                  <label class="services__label" for="create-start">Inicio</label>
+                  <input class="services__input" type="time" id="create-start" name="start" required>
+                </div>
+                <div>
+                  <label class="services__label" for="create-end">Fin</label>
+                  <input class="services__input" type="time" id="create-end" name="end" required>
+                </div>
+              </div>
+
+              <fieldset class="services__fieldset">
+                <legend class="services__label">Importancia</legend>
+                <div class="services__options">
+                  <label class="services__option"><input type="radio" name="importance" value="high"> Alta</label>
+                  <label class="services__option"><input type="radio" name="importance" value="medium" checked> Media</label>
+                  <label class="services__option"><input type="radio" name="importance" value="low"> Baja</label>
+                </div>
+              </fieldset>
+
+              <button class="button button--dark" type="submit">Añadir a mi agenda</button>
+            </form>
+            <p class="services__status" id="create-status" role="status"></p>
+          </li>
+        </ul>
+
+        <div class="grid-2 services__results">
+          <!-- Agenda unificada (US-19, US-20, US-21, US-22) -->
+          <article class="card services__agenda" aria-labelledby="agenda-title">
+            <h3 id="agenda-title">Tu agenda en Lumi</h3>
+            <p>Todo junto, ordenado por fecha. Cambia la importancia cuando quieras.</p>
+            <ul class="services__list" id="agenda-list"></ul>
+            <p class="services__status" id="agenda-status" role="status"></p>
+          </article>
+
+          <div class="services__side">
+            <!-- US-47 -->
+            <article class="card card--pink services__alert" aria-labelledby="reschedule-title">
+              <h3 id="reschedule-title">Sugerencia de reprogramación</h3>
+              <div id="reschedule-body"></div>
+              <p class="services__status" id="reschedule-status" role="status"></p>
+            </article>
+
+            <!-- US-18 -->
+            <article class="card card--lilac services__mood" aria-labelledby="mood-title">
+              <h3 id="mood-title">¿Cómo te sientes hoy?</h3>
+              <form class="services__form" id="mood-form">
+                <fieldset class="services__fieldset">
+                  <legend class="visually-hidden">Elige tu estado de ánimo</legend>
+                  <div class="services__moods">
+                    <label class="services__mood-option"><input type="radio" name="mood" value="Feliz"><span aria-hidden="true">😊</span> Feliz</label>
+                    <label class="services__mood-option"><input type="radio" name="mood" value="Tranquila"><span aria-hidden="true">😌</span> Tranquila</label>
+                    <label class="services__mood-option"><input type="radio" name="mood" value="Cansada"><span aria-hidden="true">😴</span> Cansada</label>
+                    <label class="services__mood-option"><input type="radio" name="mood" value="Triste"><span aria-hidden="true">😢</span> Triste</label>
+                    <label class="services__mood-option"><input type="radio" name="mood" value="Irritable"><span aria-hidden="true">😤</span> Irritable</label>
+                  </div>
+                </fieldset>
+                <button class="button button--dark" type="submit">Guardar estado de ánimo</button>
+              </form>
+              <p class="services__status" id="mood-status" role="status"></p>
+              <h4 class="services__subheading" id="mood-history-title">Tu registro</h4>
+              <ul class="services__history" id="mood-history" aria-labelledby="mood-history-title"></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -100,6 +233,7 @@
   </footer>
 
   <script src="js/menu.js"></script>
+  <script src="js/services.js"></script>
 </body>
 
 </html>
