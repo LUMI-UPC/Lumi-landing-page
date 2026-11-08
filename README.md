@@ -10,10 +10,10 @@ para el curso IHC y Tecnologías Móviles (1ASI0385) de la Universidad Peruana d
 
 | Recurso | Enlace |
 |---|---|
-| 🌐 Landing publicado | https://lumi-upc.github.io/Lumi-landing-page/ |
-| 💻 Repositorio | https://github.com/LUMI-UPC/Lumi-landing-page |
-| 🎨 Diseño en Figma | https://www.figma.com/design/BCU2mabbaiTamg5pwkz2T3/LUMI-grupo1-2026 |
-| 🏷️ Versión actual | [v1.0.0](https://github.com/LUMI-UPC/Lumi-landing-page/releases/tag/v1.0.0) |
+| Landing publicado | https://lumi-upc.github.io/Lumi-landing-page/ |
+| Repositorio | https://github.com/LUMI-UPC/Lumi-landing-page |
+| Diseño en Figma | https://www.figma.com/design/BCU2mabbaiTamg5pwkz2T3/LUMI-grupo1-2026 |
+| Versión actual | [v1.0.0](https://github.com/LUMI-UPC/Lumi-landing-page/releases/tag/v1.0.0) |
 
 ## Secciones del landing
 
