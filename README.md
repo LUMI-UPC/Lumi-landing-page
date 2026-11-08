@@ -73,6 +73,7 @@ Los botones *−1 día / +1 día / +7 días* simulan el paso del tiempo para ver
 | Versión | Contenido |
 |---|---|
 | `v1.0.0` | Landing completo según el Figma y demo Prueba Lumi con 35 HU del core. |
+| `v1.0.1` | La demo Prueba Lumi ya no muestra los códigos de las HU en pantalla. |
 
 ## Flujo de trabajo (GitFlow)
 
