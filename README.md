@@ -6,6 +6,34 @@ para que cada mujer planifique sus clases, reuniones y tareas según su energía
 Este repositorio contiene el Landing Page de Lumi, desarrollado por la startup **6Bits**
 para el curso IHC y Tecnologías Móviles (1ASI0385) de la Universidad Peruana de Ciencias Aplicadas (UPC).
 
+## Enlaces
+
+| Recurso | Enlace |
+|---|---|
+| 🌐 Landing publicado | https://lumi-upc.github.io/Lumi-landing-page/ |
+| 💻 Repositorio | https://github.com/LUMI-UPC/Lumi-landing-page |
+| 🎨 Diseño en Figma | https://www.figma.com/design/BCU2mabbaiTamg5pwkz2T3/LUMI-grupo1-2026 |
+| 🏷️ Versión actual | [v1.0.0](https://github.com/LUMI-UPC/Lumi-landing-page/releases/tag/v1.0.0) |
+
+## Secciones del landing
+
+Header · Hero · Problema · Funcionalidades · Cómo funciona · Para quién es · **Prueba Lumi** · Planes · Testimonios · Nosotros · Preguntas frecuentes · Footer
+
+## Prueba Lumi (demo interactiva)
+
+Demo con las 5 pestañas del diseño móvil (**Inicio, Calendario, Horarios, Bienestar y Perfil**) que simula
+**35 historias de usuario del core**. Los datos viven en memoria y se reinician al recargar la página.
+Los botones *−1 día / +1 día / +7 días* simulan el paso del tiempo para ver predicciones, alertas y retrasos.
+
+| Pestaña | Historias de usuario |
+|---|---|
+| Bienvenida | US-01, US-03, US-05, US-06 |
+| Inicio | US-45, US-14, US-16, US-46, US-47, US-48 |
+| Calendario | US-44, US-11, US-17, US-12, US-18, US-15, US-21, US-50, US-22, US-23 |
+| Horarios | US-19, US-24, US-20 |
+| Bienestar | US-35, US-36, US-37, US-38, US-30, US-31, US-32, US-33, US-34 |
+| Perfil | US-25, US-26, US-13, US-49 |
+
 ## Tecnologías
 
 - HTML5
@@ -27,9 +55,24 @@ para el curso IHC y Tecnologías Móviles (1ASI0385) de la Universidad Peruana d
 ├── css/
 │   ├── base.css        # colores, tipografía y componentes compartidos
 │   └── sections/       # estilos de cada sección
-├── js/                 # interacciones simples
+├── js/
+│   ├── menu.js         # menú en celular
+│   ├── faq.js          # preguntas frecuentes
+│   └── try-lumi.js     # demo interactiva Prueba Lumi
 └── assets/images/      # logo e imágenes
 ```
+
+## Despliegue (GitHub Pages)
+
+1. El landing se publica desde la rama `main`, carpeta raíz (`/`).
+2. En **Settings → Pages**, la fuente es *Deploy from a branch* → `main` → `/ (root)`.
+3. Cada *release* que se une a `main` se publica automáticamente en https://lumi-upc.github.io/Lumi-landing-page/
+
+## Versiones
+
+| Versión | Contenido |
+|---|---|
+| `v1.0.0` | Landing completo según el Figma y demo Prueba Lumi con 35 HU del core. |
 
 ## Flujo de trabajo (GitFlow)
 
