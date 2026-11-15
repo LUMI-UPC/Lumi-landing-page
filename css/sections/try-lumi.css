@@ -1,10 +1,7 @@
 /* Prueba Lumi: demo interactiva */
-.try-lumi__intro { max-width: 760px; margin: 0 auto 24px; text-align: center; }
-.try-lumi__stories { max-width: 1000px; margin: 0 auto 24px; background: var(--color-background); border: 1px solid var(--color-border); border-radius: 16px; padding: 12px 20px; }
-.try-lumi__stories summary { cursor: pointer; font-weight: bold; min-height: 32px; display: flex; align-items: center; }
-.try-lumi__table-wrap { overflow-x: auto; margin-top: 12px; }
-.try-lumi__table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-.try-lumi__table th, .try-lumi__table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+.try-lumi__intro { max-width: 760px; margin: 0 auto; text-align: center; }
+.try-lumi__intro .section__subtitle { margin-bottom: 24px; }
+.try-lumi__note { margin-top: 16px; font-size: 0.95rem; color: var(--color-text-secondary); }
 
 /* Lo oculto con el atributo hidden no se muestra aunque tenga display propio */
 .app [hidden] { display: none !important; }
@@ -27,7 +24,7 @@
 
 .app-chip {
   min-height: 36px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--color-border);
-  background: var(--color-white); color: var(--color-text); font: inherit; font-size: 0.85rem; cursor: pointer;
+  background: var(--color-white); color: var(--color-text); font: inherit; font-size: 0.875rem; cursor: pointer;
 }
 .app-chip:hover { background: var(--color-pink); }
 .app-chip.is-active { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-white); }
@@ -39,7 +36,7 @@
   position: sticky; bottom: 0; z-index: 2;
 }
 .app__tab {
-  flex: 1; min-height: 56px; border: none; background: transparent; font: inherit; font-size: 0.8rem; color: var(--color-text-secondary);
+  flex: 1; min-height: 56px; border: none; background: transparent; font: inherit; font-size: 0.875rem; color: var(--color-text-secondary);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; padding: 6px 2px;
 }
 .app__tab svg { width: 22px; height: 22px; }
@@ -65,7 +62,6 @@
 /* Tarjetas de la app */
 .app-card { background: var(--color-white); border: 1px solid var(--color-border); border-radius: 20px; padding: 18px; min-width: 0; }
 .app-card__title { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0 0 10px; font-size: 1.1rem; }
-.app-card__hu { font-size: 0.7rem; color: var(--color-text-secondary); background: var(--color-background); border-radius: 999px; padding: 2px 8px; white-space: nowrap; }
 .app-card--phase { background: linear-gradient(150deg, var(--color-lilac), var(--color-white) 70%); }
 .app-card--warning { background: #fff0f3; border-color: #f29bab; }
 .app-phase__name { font-size: 1.6rem; color: var(--color-accent); margin: 0; }
@@ -98,7 +94,7 @@
 .app-cal__head { display: flex; align-items: center; justify-content: space-between; }
 .app-cal__month { margin: 0; font-size: 1.1rem; text-transform: capitalize; }
 .app-cal__week, .app-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-.app-cal__week span { text-align: center; font-size: 0.8rem; color: var(--color-text-secondary); padding: 4px 0; }
+.app-cal__week span { text-align: center; font-size: 0.875rem; color: var(--color-text-secondary); padding: 4px 0; }
 .app-cal__day {
   position: relative; min-height: 42px; border-radius: 12px; border: 2px solid transparent; background: #fdf1f3;
   font: inherit; color: var(--color-text); cursor: pointer;
@@ -109,8 +105,7 @@
 .app-cal__day.is-period { background: var(--color-accent); color: var(--color-white); font-weight: bold; }
 .app-cal__day.is-today { outline: 2px solid var(--color-text); outline-offset: 1px; }
 .app-cal__day.is-selected { box-shadow: 0 0 0 3px var(--color-accent); }
-.app-cal__mark { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 50%; background: #9b6cc9; }
-.app-legend { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; padding: 0; margin: 12px 0 0; font-size: 0.85rem; }
+.app-legend { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; padding: 0; margin: 12px 0 0; font-size: 0.875rem; }
 .app-legend li { display: flex; align-items: center; gap: 6px; }
 .app-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
 .app-dot--period { background: var(--color-accent); }
@@ -135,7 +130,7 @@
 .app-form-grid { display: grid; gap: 0 12px; grid-template-columns: 1fr; }
 @media (min-width: 600px) { .app-form-grid { grid-template-columns: 1fr 1fr; } .app-form-grid__full { grid-column: 1 / -1; } }
 .app-form-grid > .button { align-self: end; margin-bottom: 12px; }
-.select--small { width: auto; min-height: 36px; font-size: 0.85rem; padding: 4px 8px; }
+.select--small { width: auto; min-height: 36px; font-size: 0.875rem; padding: 4px 8px; }
 .app-switch { display: flex; align-items: flex-start; gap: 10px; margin: 8px 0; }
 .app-switch input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--color-accent); flex-shrink: 0; }
 
@@ -149,7 +144,7 @@
 .app-bars__col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%; }
 .app-bars__bar { width: 100%; max-width: 32px; background: #b9d7f2; border-radius: 8px 8px 4px 4px; }
 .app-bars__bar.is-goal { background: #7bb3e6; }
-.app-bars__value, .app-bars__label { font-size: 0.75rem; color: var(--color-text-secondary); }
+.app-bars__value, .app-bars__label { font-size: 0.875rem; color: var(--color-text-secondary); }
 .app-habits { margin-top: 12px; }
 .app-habits__moment { margin: 0 0 6px; color: var(--color-accent); font-size: 0.95rem; }
 .app-habit { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; background: var(--color-background); border-radius: 12px; padding: 8px 12px; margin-bottom: 8px; }
@@ -165,7 +160,7 @@
 .app-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 8px; }
 .app-stat { background: var(--color-background); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; }
 .app-stat strong { color: var(--color-accent); font-size: 1.2rem; }
-.app-stat span { font-size: 0.8rem; color: var(--color-text-secondary); }
+.app-stat span { font-size: 0.875rem; color: var(--color-text-secondary); }
 
 /* Capa: bienvenida guiada y bloqueo */
 .app__overlay { position: absolute; inset: 0; z-index: 5; background: rgba(255, 248, 248, 0.97); display: flex; align-items: flex-start; justify-content: center; padding: 24px 16px; overflow-y: auto; }
@@ -185,3 +180,105 @@
 }
 .app__toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 @media (min-width: 900px) { .app__toast { bottom: 24px; } }
+
+/* ---------- Prototipo 3: correcciones de la auditoría ---------- */
+
+/* Franja de la demostración: cambio de fecha, separado de los controles de la app */
+.app__demo {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 20px;
+  background: #f6f1fa; border-bottom: 1px solid var(--color-border); font-size: 0.875rem; color: var(--color-text-secondary);
+}
+.app__demo-tag { background: #6b3fa0; color: var(--color-white); font-weight: bold; padding: 2px 10px; border-radius: 999px; }
+.app__demo-label { display: none; }
+@media (min-width: 600px) { .app__demo-label { display: inline; } }
+.app__demo-buttons { display: flex; flex-wrap: wrap; gap: 4px; }
+@media (max-width: 380px) { .app__demo { padding: 8px 12px; gap: 6px; } }
+.app-sim {
+  min-height: 36px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--color-border);
+  background: var(--color-white); color: var(--color-text); font: inherit; font-size: 0.875rem; cursor: pointer;
+}
+.app-sim:hover { background: var(--color-background); }
+
+/* Aviso arriba, con botón de cerrar (no tapa acciones) */
+.app__toast {
+  top: 12px; bottom: auto; transform: translate(-50%, -12px);
+  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; pointer-events: auto;
+}
+.app__toast:not(.is-visible) { pointer-events: none; }
+.app__toast.is-visible { transform: translate(-50%, 0); }
+.app__toast-close {
+  min-width: 36px; min-height: 36px; border: none; border-radius: 50%; background: rgba(255,255,255,0.15);
+  color: var(--color-white); font-size: 1.2rem; cursor: pointer;
+}
+@media (min-width: 900px) { .app__toast { bottom: auto; } }
+
+/* Calendario: íconos además del color (problema 1) */
+.app-cal__day { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px 2px; min-height: 52px; }
+.app-cal__num { line-height: 1; }
+.app-cal__marks { display: flex; align-items: center; justify-content: center; gap: 3px; min-height: 16px; }
+.app-icon { width: 16px; height: 16px; flex-shrink: 0; }
+.app-icon--period { fill: currentColor; }
+.app-cal__day.is-period .app-icon--period { fill: var(--color-white); }
+.app-legend .app-icon--period { fill: var(--color-accent); }
+.app-icon--predicted { fill: none; stroke: #7a4fa8; stroke-width: 2; stroke-dasharray: 3 2; }
+.app-icon--low { fill: #8a6200; }
+.app-cal__count {
+  min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: #6b3fa0; color: var(--color-white);
+  font-size: 0.875rem; line-height: 20px; text-align: center; font-weight: bold;
+}
+.app-legend li { gap: 8px; }
+
+/* App a pantalla completa en el celular (app.html) */
+.app-page { margin: 0; background: var(--color-background); }
+.app-page .app { max-width: none; border: none; border-radius: 0; box-shadow: none; min-height: 100vh; min-height: 100dvh; }
+.app-page .app__topbar { padding-top: max(12px, env(safe-area-inset-top)); }
+.app-page .app__toast { position: fixed; top: max(8px, env(safe-area-inset-top)); z-index: 19; width: max-content; }
+.app-page .app__tabs { padding-bottom: env(safe-area-inset-bottom); }
+.app-page .app__body { padding-bottom: 24px; }
+@media (max-width: 899px) {
+  .app-page .app__tabs { position: fixed; left: 0; right: 0; bottom: 0; }
+  .app-page .app__body { padding-bottom: 96px; }
+}
+.app-link { align-self: center; color: var(--color-accent); }
+
+/* Antes de configurar la app no se muestran la barra superior ni las herramientas de la demo */
+.app.is-welcome .app__topbar, .app.is-welcome .app__demo { display: none; }
+.app__welcome .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0; }
+
+/* ---------- Modo oscuro (Perfil → Apariencia, según el diseño de Figma) ---------- */
+.is-dark {
+  color-scheme: dark;
+  --color-background: #2a2327;
+  --color-background-pink: #332b2f;
+  --color-white: #3a3236;          /* superficies: tarjetas, barras y campos */
+  --color-text: #f5edef;
+  --color-text-secondary: #bfafb5;
+  --color-border: #54474d;
+  --color-accent: #f08ba0;         /* rosado más claro para que se lea sobre fondo oscuro */
+  --color-pink: #5a3a45;
+  --color-lilac: #463a55;
+  --color-yellow: #4d4326;
+}
+.app.is-dark { color: var(--color-text); border-color: #54474d; box-shadow: none; }
+/* Texto oscuro sobre los elementos rosados y lilas */
+.is-dark .button--primary, .is-dark .app-chip.is-active, .is-dark .app-cal__day.is-period { color: #2a2327; }
+.is-dark .button--primary:hover { background: #f5a3b4; }
+.is-dark .app-cal__day.is-period .app-icon--period { fill: #2a2327; }
+.is-dark .app__demo-tag, .is-dark .app-cal__count { background: #c9aeeb; color: #2a2327; }
+.is-dark .app__toast-close { background: rgba(0, 0, 0, 0.12); color: #2a2327; }
+/* Colores fijos del modo claro */
+.is-dark .app__demo { background: #332a3a; }
+.is-dark .app__overlay { background: rgba(42, 35, 39, 0.97); }
+.is-dark .app-card--warning { background: #4a2b35; border-color: #e8758a; }
+.is-dark .app-ok { background: #24402f; }
+.is-dark .app-warning { color: #ffb3c2; }
+.is-dark .app-energy { background: #54474d; }
+.is-dark .app-cal__day { background: #332b2f; }
+.is-dark .app-cal__day.is-low { background: var(--color-yellow); }
+.is-dark .app-cal__day.is-predicted, .is-dark .app-dot--predicted { border-color: #c9aeeb; }
+.is-dark .app-cal__day.is-period { background: var(--color-accent); }
+.is-dark .app-icon--predicted { stroke: #c9aeeb; }
+.is-dark .app-icon--low { fill: #f2c94c; }
+.is-dark .app-dot--event { background: #c9aeeb; }
+.is-dark .app-bars__bar { background: #4f6f8f; }
+.is-dark .app-cal__day.is-empty { background: transparent; }

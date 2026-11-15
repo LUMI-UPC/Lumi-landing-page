@@ -21,3 +21,12 @@
   .hero__grid { grid-template-columns: 1fr auto; justify-items: start; gap: 48px; }
   .phone { width: 300px; height: 600px; }
 }
+
+/* Insignias de tiendas: visibles como "Próximamente", sin parecer botones activos */
+.store-badge {
+  display: inline-flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 4px 18px;
+  border-radius: 14px; border: 1px dashed #8e8288; color: var(--color-text-secondary); background: var(--color-white);
+  font-size: 0.95rem; line-height: 1.2; cursor: not-allowed;
+}
+.store-badge small { font-size: 0.875rem; color: var(--color-accent); }
+.hero__note { margin-top: 12px; color: var(--color-text-secondary); font-size: 0.95rem; }
