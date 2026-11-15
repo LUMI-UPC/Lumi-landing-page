@@ -260,9 +260,9 @@
     if (Array.isArray(child)) { child.forEach(function (c) { append(el, c); }); return; }
     el.appendChild(typeof child === 'string' || typeof child === 'number' ? document.createTextNode(String(child)) : child);
   }
-  function card(title, hu, cls) {
-    var c = h('section', { class: 'app-card' + (cls ? ' ' + cls : ''), 'data-hu': hu });
-    c.appendChild(h('h4', { class: 'app-card__title' }, title, hu ? h('span', { class: 'app-card__hu', text: hu }) : null));
+  function card(title, cls) {
+    var c = h('section', { class: 'app-card' + (cls ? ' ' + cls : '') });
+    c.appendChild(h('h4', { class: 'app-card__title' }, title));
     return c;
   }
   var uid = 0;
@@ -290,14 +290,45 @@
   }
   function badge(text, mod) { return h('span', { class: 'badge' + (mod ? ' badge--' + mod : ''), text: text }); }
 
+  // Aviso arriba de la app, con botón para cerrarlo (no tapa los botones de acción)
   var toastTimer;
   function toast(message) {
     var el = app.querySelector('.app__toast');
-    el.textContent = message;
+    el.textContent = '';
+    el.appendChild(h('span', { class: 'app__toast-text', text: message }));
+    el.appendChild(h('button', { type: 'button', class: 'app__toast-close', 'aria-label': 'Cerrar aviso',
+      onclick: function () { el.classList.remove('is-visible'); }, text: '×' }));
     el.classList.add('is-visible');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { el.classList.remove('is-visible'); }, 3500);
+    toastTimer = setTimeout(function () { el.classList.remove('is-visible'); }, 4000);
   }
+
+  /* ------------------------------------------------------------------
+     Apariencia: claro, oscuro o automático (según el dispositivo)
+     ------------------------------------------------------------------ */
+  var THEMES = [['light', 'Claro'], ['dark', 'Oscuro'], ['auto', 'Automático']];
+  var theme = 'light';
+  try { theme = localStorage.getItem('lumi-theme') || 'light'; } catch (e) { /* sin almacenamiento: se queda en claro */ }
+  var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function isDark() { return theme === 'dark' || (theme === 'auto' && !!darkQuery && darkQuery.matches); }
+
+  function applyTheme() {
+    var dark = isDark();
+    app.classList.toggle('is-dark', dark);
+    if (document.body.classList.contains('app-page')) {
+      document.body.classList.toggle('is-dark', dark);
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', dark ? '#2a2327' : '#ffffff');
+    }
+  }
+
+  function setTheme(value) {
+    theme = value;
+    try { localStorage.setItem('lumi-theme', value); } catch (e) { /* solo dura esta visita */ }
+    render();
+  }
+  if (darkQuery && darkQuery.addEventListener) darkQuery.addEventListener('change', applyTheme);
 
   /* ------------------------------------------------------------------
      Barra superior: fecha simulada, modo discreto y bloqueo
@@ -308,14 +339,23 @@
     bar.appendChild(h('div', { class: 'app__greeting' },
       h('strong', { text: 'Hola, ' + state.profile.name }),
       h('span', { text: WEEKDAYS[state.today.getDay()] + ' ' + longDate(state.today) + (diffDays(state.today, REAL_TODAY) ? ' (simulado)' : '') })));
-    var controls = h('div', { class: 'app__controls', role: 'group', 'aria-label': 'Simular el paso de los días' },
-      h('button', { type: 'button', class: 'app-chip', onclick: function () { moveToday(-1); }, 'aria-label': 'Retroceder un día', text: '−1 día' }),
-      h('button', { type: 'button', class: 'app-chip', onclick: function () { moveToday(1); }, 'aria-label': 'Avanzar un día', text: '+1 día' }),
-      h('button', { type: 'button', class: 'app-chip', onclick: function () { moveToday(7); }, 'aria-label': 'Avanzar una semana', text: '+7 días' }),
-      h('button', { type: 'button', class: 'app-chip', onclick: function () { moveToday(diffDays(REAL_TODAY, state.today)); }, text: 'Hoy' }),
+    // Controles de la app (funciones reales de Lumi)
+    bar.appendChild(h('div', { class: 'app__controls', role: 'group', 'aria-label': 'Privacidad y apariencia' },
       h('button', { type: 'button', class: 'app-chip' + (state.security.discreet ? ' is-active' : ''), 'aria-pressed': String(state.security.discreet), onclick: toggleDiscreet, text: 'Modo discreto' }),
-      h('button', { type: 'button', class: 'app-chip', onclick: lockNow, text: 'Bloquear' }));
-    bar.appendChild(controls);
+      h('button', { type: 'button', class: 'app-chip' + (isDark() ? ' is-active' : ''), 'aria-pressed': String(isDark()), onclick: function () { setTheme(isDark() ? 'light' : 'dark'); }, text: 'Modo oscuro' }),
+      h('button', { type: 'button', class: 'app-chip', onclick: lockNow, text: 'Bloquear' })));
+
+    // Cambio de fecha de la demostración: en una franja aparte, separada de los controles de la app
+    var sim = app.querySelector('.app__demo');
+    if (!sim) { sim = h('div', { class: 'app__demo' }); bar.parentNode.insertBefore(sim, bar.nextSibling); }
+    sim.textContent = '';
+    sim.appendChild(h('span', { class: 'app__demo-tag', text: 'Demo' }));
+    sim.appendChild(h('span', { class: 'app__demo-label', text: 'Cambiar fecha:' }));
+    sim.appendChild(h('div', { class: 'app__demo-buttons', role: 'group', 'aria-label': 'Cambiar la fecha de la demostración' },
+      h('button', { type: 'button', class: 'app-sim', onclick: function () { moveToday(-1); }, 'aria-label': 'Retroceder un día', text: '−1 día' }),
+      h('button', { type: 'button', class: 'app-sim', onclick: function () { moveToday(1); }, 'aria-label': 'Avanzar un día', text: '+1 día' }),
+      h('button', { type: 'button', class: 'app-sim', onclick: function () { moveToday(7); }, 'aria-label': 'Avanzar una semana', text: '+7 días' }),
+      h('button', { type: 'button', class: 'app-sim', onclick: function () { moveToday(diffDays(REAL_TODAY, state.today)); }, text: 'Hoy' })));
   }
 
   function moveToday(n) {
@@ -335,7 +375,7 @@
     var late = daysLate();
 
     // US-45 Fase y energía
-    var phase = card('Tu fase de hoy', 'US-45', 'app-card--phase');
+    var phase = card('Tu fase de hoy', 'app-card--phase');
     phase.appendChild(h('p', { class: 'app-phase__name', text: late ? 'Esperando tu ' + t('period') : info.name }));
     phase.appendChild(h('p', { class: 'app-muted', text: 'Día ' + cycleDay(state.today) + ' de tu ' + t('cycle') + ' de ' + cycleLength() + ' días · Próximo ' + t('period') + ': ' + longDate(nextPeriodDate()) }));
     var bar = h('div', { class: 'app-energy', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(info.energy), 'aria-label': 'Energía esperada' },
@@ -347,7 +387,7 @@
 
     // US-16 Retraso
     if (late) {
-      var lateCard = card('Retraso de tu ' + t('period'), 'US-16', 'app-card--warning');
+      var lateCard = card('Retraso de tu ' + t('period'), 'app-card--warning');
       lateCard.appendChild(h('p', { text: 'Tu ' + t('period') + ' lleva ' + late + ' días de retraso respecto a la fecha estimada (' + longDate(addDays(lastStart(), cycleLength())) + '). Si el retraso continúa, considera consultar con un profesional de salud.' }));
       lateCard.appendChild(h('button', { type: 'button', class: 'button button--primary', onclick: function () { goTab('calendar'); }, text: 'Registrar inicio' }));
       panel.appendChild(lateCard);
@@ -355,7 +395,7 @@
 
     // US-14 Ajuste por irregularidad
     var st = cycleStats();
-    var irr = card('Predicción ajustada a tu ' + t('cycle'), 'US-14');
+    var irr = card('Predicción ajustada a tu ' + t('cycle'));
     if (st.irregular) {
       irr.appendChild(h('p', { text: 'Tus últimos ' + t('cycle') + 's duraron entre ' + st.min + ' y ' + st.max + ' días. ' +
         (state.cycle.autoAdjust ? 'Ajustamos la predicción a ' + Math.round(st.avg) + ' días (tu promedio real).' : 'El ajuste automático está apagado: usamos ' + state.cycle.length + ' días.') }));
@@ -369,7 +409,7 @@
     panel.appendChild(irr);
 
     // US-46 y US-47 Alertas y reprogramación
-    var alerts = card('Alertas de baja energía', 'US-46 · US-47');
+    var alerts = card('Alertas de baja energía');
     var list = upcomingConflicts();
     if (!list.length) alerts.appendChild(h('p', { class: 'app-ok', text: 'Ninguna actividad importante coincide con días de baja energía en los próximos 30 días.' }));
     list.forEach(function (ev) {
@@ -392,7 +432,7 @@
     panel.appendChild(alerts);
 
     // US-48 Recordatorios combinados
-    var rem = card('Recordatorios inteligentes', 'US-48');
+    var rem = card('Recordatorios inteligentes');
     var reminders = upcomingReminders();
     if (!reminders.length) rem.appendChild(h('p', { class: 'app-muted', text: 'No tienes recordatorios para hoy ni mañana. Créalos al agregar una actividad en Calendario.' }));
     reminders.forEach(function (r) { rem.appendChild(h('p', { class: 'app-reminder' }, h('strong', { text: r.when + ': ' }), r.text)); });
@@ -453,7 +493,7 @@
      Pestaña Calendario
      ------------------------------------------------------------------ */
   function renderCalendar(panel) {
-    var cal = card('Calendario unificado', 'US-44', 'app-card--calendar');
+    var cal = card('Calendario unificado', 'app-card--calendar');
     var m = state.ui.month;
     cal.appendChild(h('div', { class: 'app-cal__head' },
       h('button', { type: 'button', class: 'app-icon-button', 'aria-label': 'Mes anterior', onclick: function () { state.ui.month = new Date(m.getFullYear(), m.getMonth() - 1, 1); render(); }, text: '‹' }),
@@ -469,16 +509,35 @@
     for (var dnum = 1; dnum <= days; dnum++) grid.appendChild(dayButton(new Date(m.getFullYear(), m.getMonth(), dnum)));
     cal.appendChild(grid);
     var legend = h('ul', { class: 'app-legend' },
-      h('li', {}, h('span', { class: 'app-dot app-dot--period' }), t('Period')),
-      h('li', {}, h('span', { class: 'app-dot app-dot--predicted' }), t('Period') + ' estimado'),
-      h('li', {}, h('span', { class: 'app-dot app-dot--low' }), 'Baja energía'),
-      h('li', {}, h('span', { class: 'app-dot app-dot--event' }), 'Actividad'));
+      h('li', {}, icon('drop', 'period'), t('Period')),
+      h('li', {}, icon('drop', 'predicted'), t('Period') + ' estimado'),
+      h('li', {}, icon('battery', 'low'), 'Baja energía'),
+      h('li', {}, h('span', { class: 'app-cal__count', text: '2' }), 'N.º de actividades'));
     cal.appendChild(legend);
     panel.appendChild(cal);
 
     panel.appendChild(renderDayDetail());
     panel.appendChild(renderLogForm());
     panel.appendChild(renderEventForm());
+  }
+
+  // Íconos para que el estado no dependa solo del color
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var ICONS = {
+    drop: 'M12 3c3 4.2 6 7.6 6 11.2A6 6 0 0 1 6 14.2C6 10.6 9 7.2 12 3z',
+    battery: 'M4 8h13a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1zM19 10.5h2v3h-2zM5 10h3v4H5z'
+  };
+  function icon(name, cls) {
+    var svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('class', 'app-icon app-icon--' + (cls || name));
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    var path = document.createElementNS(SVGNS, 'path');
+    path.setAttribute('d', ICONS[name]);
+    if (name === 'battery') { path.setAttribute('fill-rule', 'evenodd'); }
+    svg.appendChild(path);
+    return svg;
   }
 
   function dayButton(date) {
@@ -494,8 +553,13 @@
     if (diffDays(date, state.ui.selected) === 0) cls += ' is-selected';
     if (events.length) labels.push(events.length + (events.length === 1 ? ' actividad' : ' actividades'));
     var btn = h('button', { type: 'button', class: cls, 'aria-label': labels.join(', '), 'aria-pressed': String(diffDays(date, state.ui.selected) === 0),
-      onclick: function () { state.ui.selected = date; render(); } }, String(date.getDate()));
-    if (events.length) btn.appendChild(h('span', { class: 'app-cal__mark', 'aria-hidden': 'true' }));
+      onclick: function () { state.ui.selected = date; render(); } }, h('span', { class: 'app-cal__num', text: String(date.getDate()) }));
+    var marks = h('span', { class: 'app-cal__marks', 'aria-hidden': 'true' });
+    if (status === 'logged') marks.appendChild(icon('drop', 'period'));
+    else if (status === 'predicted') marks.appendChild(icon('drop', 'predicted'));
+    else if (isLowEnergy(date)) marks.appendChild(icon('battery', 'low'));
+    if (events.length) marks.appendChild(h('span', { class: 'app-cal__count', text: String(events.length) }));
+    if (marks.childNodes.length) btn.appendChild(marks);
     return btn;
   }
 
@@ -503,7 +567,7 @@
     var d = state.ui.selected;
     var key = toKey(d);
     var info = phaseInfo(d);
-    var c = card(longDate(d) + ' · ' + info.name, 'US-44 · US-22 · US-23 · US-50', 'app-card--day');
+    var c = card(longDate(d) + ' · ' + info.name, 'app-card--day');
     var events = state.events.filter(function (e) { return e.date === key; }).sort(byDate);
     if (!events.length) c.appendChild(h('p', { class: 'app-muted', text: 'Sin actividades este día.' }));
     var list = h('ul', { class: 'app-list' });
@@ -534,7 +598,7 @@
     var d = state.ui.selected;
     var key = toKey(d);
     var log = state.logs[key] || { flow: '', symptoms: [], mood: '', meds: [] };
-    var c = card('Registrar el ' + longDate(d), 'US-11 · US-17 · US-12 · US-18 · US-15');
+    var c = card('Registrar el ' + longDate(d));
     c.id = 'log-form';
     var msg = h('p', { class: 'app-message', role: 'status' });
     c.appendChild(h('div', { class: 'app-actions' },
@@ -586,7 +650,7 @@
 
   // US-21, US-50, US-22, US-23, US-48
   function renderEventForm() {
-    var c = card('Agregar actividad', 'US-21 · US-50 · US-22 · US-23 · US-48');
+    var c = card('Agregar actividad');
     c.id = 'event-form';
     var title = h('input', { class: 'input', type: 'text', placeholder: 'Ej.: Reunión de equipo', maxlength: '60' });
     var date = h('input', { class: 'input', type: 'date', value: toKey(state.ui.selected) });
@@ -633,7 +697,7 @@
 
   function renderSchedule(panel) {
     // US-19 y US-24
-    var sync = card('Agendas vinculadas', 'US-19 · US-24');
+    var sync = card('Agendas vinculadas');
     ['google', 'outlook'].forEach(function (src) {
       var status = state.calendars[src];
       var count = state.events.filter(function (e) { return e.source === src; }).length;
@@ -651,7 +715,7 @@
     panel.appendChild(sync);
 
     // US-20 Importar CSV
-    var csv = card('Importar horario académico (CSV)', 'US-20');
+    var csv = card('Importar horario académico (CSV)');
     var area = h('textarea', { class: 'textarea', spellcheck: 'false' });
     area.value = 'curso,dia,hora\nCálculo,lunes,08:00\nFísica,miércoles,10:00\nProgramación,viernes,14:00';
     var file = h('input', { type: 'file', accept: '.csv,text/csv', class: 'input' });
@@ -675,7 +739,7 @@
     panel.appendChild(csv);
 
     // Agenda de los próximos 14 días con clasificación de reuniones (US-23)
-    var agenda = card('Tu agenda (próximos 14 días)', 'US-23');
+    var agenda = card('Tu agenda (próximos 14 días)');
     var upcoming = state.events.filter(function (e) { var d = diffDays(fromKey(e.date), state.today); return d >= 0 && d <= 14; }).sort(byDate);
     if (!upcoming.length) agenda.appendChild(h('p', { class: 'app-muted', text: 'No hay actividades en los próximos 14 días.' }));
     var list = h('ul', { class: 'app-list' });
@@ -747,7 +811,7 @@
     var log = state.logs[todayKey];
 
     // US-35 Autocuidado según ánimo
-    var care = card('Autocuidado según tu ánimo', 'US-35');
+    var care = card('Autocuidado según tu ánimo');
     var mood = log && log.mood;
     if (!mood) care.appendChild(h('p', { class: 'app-muted', text: '¿Cómo te sientes hoy? Elige tu ánimo y te sugerimos actividades.' }));
     var moods = h('div', { class: 'app-actions' });
@@ -760,14 +824,14 @@
     panel.appendChild(care);
 
     // US-36 Refrigerios
-    var snack = card('Refrigerios para tu energía', 'US-36');
+    var snack = card('Refrigerios para tu energía');
     var snackKey = info.key === 'menstrual' ? 'menstrual' : (info.key === 'late' ? 'late' : 'normal');
     snack.appendChild(h('p', { class: info.energy <= 45 ? 'app-warning' : 'app-muted', text: info.energy <= 45 ? 'Tu energía hoy es baja. Te recomendamos:' : 'Tu energía hoy es ' + info.level.toLowerCase() + '. Opciones saludables:' }));
     snack.appendChild(h('ul', { class: 'app-tips' }, SNACKS[snackKey].map(function (s) { return h('li', { text: s }); })));
     panel.appendChild(snack);
 
     // US-37 Agua
-    var water = card('Hidratación', 'US-37');
+    var water = card('Hidratación');
     var glasses = state.water.byDay[todayKey] || 0;
     water.appendChild(h('p', { class: 'app-water' }, h('strong', { text: glasses + ' / ' + state.water.goal }), ' vasos de agua hoy'));
     water.appendChild(h('div', { class: 'app-energy', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': String(state.water.goal), 'aria-valuenow': String(glasses), 'aria-label': 'Vasos de agua' },
@@ -785,7 +849,7 @@
     panel.appendChild(water);
 
     // US-38 Resumen semanal
-    var week = card('Resumen semanal de hidratación y nutrición', 'US-38');
+    var week = card('Resumen semanal de hidratación y nutrición');
     var chart = h('div', { class: 'app-bars', role: 'img', 'aria-label': 'Vasos de agua de los últimos 7 días' });
     var total = 0;
     for (var i = 6; i >= 0; i--) {
@@ -816,7 +880,7 @@
   // US-30, US-31, US-32, US-33, US-34
   function renderHabits() {
     var todayKey = toKey(state.today);
-    var c = card('Mis hábitos', 'US-30 · US-31 · US-32 · US-33 · US-34');
+    var c = card('Mis hábitos');
     var available = HABIT_CATALOG.filter(function (x) { return !state.habits.some(function (hb) { return hb.name === x.name && !hb.archived; }); });
     var opts = {};
     available.forEach(function (x, i) { opts[i] = x.name + ' (' + MOMENTS[x.moment].toLowerCase() + ')'; });
@@ -875,7 +939,7 @@
      ------------------------------------------------------------------ */
   function renderProfile(panel) {
     // US-01, US-05, US-03
-    var prof = card('Mi perfil', 'US-01 · US-05 · US-03');
+    var prof = card('Mi perfil');
     prof.appendChild(h('ul', { class: 'app-list' },
       h('li', {}, h('strong', { text: 'Estilo de vida: ' }), SEGMENTS[state.profile.segment]),
       h('li', {}, h('strong', { text: 'Objetivos: ' }), state.profile.goals.map(function (g) { return GOALS[g]; }).join(' · ') || 'Sin objetivos'),
@@ -885,7 +949,13 @@
     panel.appendChild(prof);
 
     // US-25 y US-26
-    var sec = card('Privacidad y seguridad', 'US-25 · US-26');
+    var look = card('Apariencia');
+    var themeChips = chips('theme', THEMES, [theme], 'radio');
+    themeChips.addEventListener('change', function (e) { setTheme(e.target.value); });
+    look.appendChild(h('fieldset', { class: 'field' }, h('legend', { text: 'Tema de la app' }), themeChips));
+    look.appendChild(h('p', { class: 'app-muted', text: 'El modo oscuro es más cómodo con poca luz. "Automático" sigue el tema de tu celular.' }));
+
+    var sec = card('Privacidad y seguridad');
     var pin = h('input', { class: 'input', type: 'password', inputmode: 'numeric', maxlength: '4', autocomplete: 'off', placeholder: '4 dígitos' });
     var pin2 = h('input', { class: 'input', type: 'password', inputmode: 'numeric', maxlength: '4', autocomplete: 'off', placeholder: 'Repite el PIN' });
     var msg = h('p', { class: 'app-message', role: 'status' });
@@ -900,14 +970,23 @@
       state.security.pin ? h('button', { type: 'button', class: 'button button--outline', onclick: function () { state.security.pin = null; toast('Bloqueo con PIN desactivado.'); render(); }, text: 'Quitar PIN' }) : null,
       h('button', { type: 'button', class: 'button button--outline', onclick: lockNow, text: 'Bloquear ahora' })));
     sec.appendChild(msg);
+    // Eliminar datos (enlazado desde la política de privacidad)
+    var delBtn = h('button', { type: 'button', class: 'button button--outline', text: 'Eliminar mi cuenta y mis datos' });
+    delBtn.addEventListener('click', function () {
+      if (!delBtn.dataset.confirm) { delBtn.dataset.confirm = '1'; delBtn.textContent = '¿Seguro? Toca otra vez para borrar todo'; return; }
+      window.LumiDemo.reset(false);
+      toast('Eliminamos tu cuenta y todos tus datos.');
+    });
+    sec.appendChild(h('div', { class: 'app-actions' }, delBtn, h('a', { class: 'app-link', href: 'privacy.html', text: 'Política de privacidad' })));
     var discId = fieldId();
     sec.appendChild(h('div', { class: 'app-switch' },
       h('input', { type: 'checkbox', id: discId, checked: state.security.discreet, onchange: toggleDiscreet }),
       h('label', { for: discId, text: 'Modo discreto: cambia los términos biológicos por nombres neutros para usar Lumi en público' })));
+    panel.appendChild(look);
     panel.appendChild(sec);
 
     // US-13 Historial
-    var hist = card('Historial de ' + t('cycle') + 's', 'US-13');
+    var hist = card('Historial de ' + t('cycle') + 's');
     var periods = sortedPeriods();
     var table = h('table', { class: 'app-table' },
       h('caption', { class: 'visually-hidden', text: 'Historial de ' + t('cycle') + 's anteriores' }),
@@ -915,11 +994,15 @@
     var body = h('tbody');
     periods.slice().reverse().forEach(function (p, i, arr) {
       var start = fromKey(p.start);
-      var prev = arr[i + 1];
-      var len = i === 0 ? 'En curso' : diffDays(fromKey(arr[i - 1].start), start) + ' días';
+      // Si no se registró el fin, usamos la misma duración que muestra el calendario
+      var autoEnd = addDays(start, state.cycle.periodLength - 1);
+      var periodDays;
+      if (p.end) periodDays = String(diffDays(fromKey(p.end), start) + 1);
+      else if (diffDays(state.today, autoEnd) > 0) periodDays = state.cycle.periodLength + ' (estimado)';
+      else periodDays = 'En curso (día ' + (diffDays(state.today, start) + 1) + ')';
+      var len = i === 0 ? 'Actual · día ' + cycleDay(state.today) : diffDays(fromKey(arr[i - 1].start), start) + ' días';
       body.appendChild(h('tr', {}, h('td', { text: longDate(start) + ' ' + start.getFullYear() }),
-        h('td', { text: p.end ? String(diffDays(fromKey(p.end), start) + 1) : 'En curso' }), h('td', { text: len })));
-      void prev;
+        h('td', { text: periodDays }), h('td', { text: len })));
     });
     table.appendChild(body);
     hist.appendChild(h('div', { class: 'app-table-wrap' }, table));
@@ -930,7 +1013,7 @@
 
   // US-49 y estadística de US-15
   function renderReport() {
-    var c = card('Reporte de patrones', 'US-49');
+    var c = card('Reporte de patrones');
     var st = cycleStats();
     var symptomCount = {}, moodCount = {}, cramps = 0, crampsWithPain = 0, logged = 0;
     Object.keys(state.logs).forEach(function (k) {
@@ -1101,6 +1184,8 @@
     overlay.textContent = '';
     overlay.hidden = true;
     app.classList.toggle('is-discreet', state.security.discreet);
+    app.classList.toggle('is-welcome', !state.started);
+    applyTheme();
 
     var welcome = app.querySelector('.app__welcome');
     var body = app.querySelector('.app__body');
@@ -1140,6 +1225,19 @@
       });
     });
   }
+
+  // Permite reiniciar la demo (por ejemplo, al eliminar la cuenta)
+  window.LumiDemo = {
+    reset: function (useSample) {
+      nextId = 1;
+      state = createState(REAL_TODAY);
+      seedData();
+      if (useSample) state.started = true;
+      render();
+    },
+    goTab: function (tab) { goTab(tab); },
+    toast: function (m) { toast(m); }
+  };
 
   function init() {
     state = createState(REAL_TODAY);

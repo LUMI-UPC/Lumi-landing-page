@@ -17,22 +17,42 @@ para el curso IHC y Tecnologías Móviles (1ASI0385) de la Universidad Peruana d
 
 ## Secciones del landing
 
-Header · Hero · Problema · Funcionalidades · Cómo funciona · Para quién es · **Prueba Lumi** · Planes · Testimonios · Nosotros · Preguntas frecuentes · Footer
+Header · Hero · Problema · Funcionalidades · Cómo funciona · Para quién es · **Prueba Lumi** · Planes · Validación · Nosotros · Preguntas frecuentes · Footer
 
-## Prueba Lumi (demo interactiva)
+Páginas: `index.html` (landing), `app.html` (demo de la app) y `privacy.html` (privacidad, términos y eliminación de datos).
 
-Demo con las 5 pestañas del diseño móvil (**Inicio, Calendario, Horarios, Bienestar y Perfil**) que simula
-**35 historias de usuario del core**. Los datos viven en memoria y se reinician al recargar la página.
-Los botones *−1 día / +1 día / +7 días* simulan el paso del tiempo para ver predicciones, alertas y retrasos.
+## Prueba Lumi (demo de la app)
+
+El landing tiene el botón **Abrir la demo**, que lleva a `app.html`: la app a pantalla completa, pensada para el celular
+(se puede agregar a la pantalla de inicio). Tiene las 5 pestañas del diseño móvil (**Inicio, Calendario, Horarios,
+Bienestar y Perfil**) y simula **35 historias de usuario del core**. Los datos viven en memoria y se reinician al recargar.
+
+- La franja **Demo** (*−1 día / +1 día / +7 días / Hoy*) cambia la fecha para ver predicciones, alertas y retrasos.
+- **Modo oscuro**: botón en la barra superior o Perfil → Apariencia (claro, oscuro o automático).
+- **Modo discreto** y **bloqueo con PIN** desde la barra superior.
 
 | Pestaña | Historias de usuario |
 |---|---|
 | Bienvenida | US-01, US-03, US-05, US-06 |
 | Inicio | US-45, US-14, US-16, US-46, US-47, US-48 |
-| Calendario | US-44, US-11, US-17, US-12, US-18, US-15, US-21, US-50, US-22, US-23 |
-| Horarios | US-19, US-24, US-20 |
+| Calendario | US-44, US-11, US-17, US-12, US-18, US-15, US-21, US-50, US-22, US-23, US-48 |
+| Horarios | US-19, US-24, US-20, US-23 |
 | Bienestar | US-35, US-36, US-37, US-38, US-30, US-31, US-32, US-33, US-34 |
 | Perfil | US-25, US-26, US-13, US-49 |
+
+## Mejoras de la auditoría de UX
+
+| Problema encontrado | Corrección |
+|---|---|
+| El calendario comunicaba los estados solo con color | Íconos de gota (periodo) y batería (energía baja), contador de actividades y leyenda |
+| Privacidad, Términos y redes sin destino | Página `privacy.html`; se retiraron los enlaces sin destino |
+| Testimonios y videos de relleno | Sección **Validación** con el proceso real de entrevistas |
+| Códigos de historias de usuario visibles en la app | Se quitaron de la app; el detalle queda en este README |
+| El aviso tapaba botones y no se podía cerrar | Aviso arriba, con botón de cerrar |
+| Botones de App Store / Google Play no descargaban | Etiquetas "Próximamente" y botón real **Probar Lumi ahora** |
+| Controles de simulación mezclados con los de la app | Franja **Demo** aparte para cambiar la fecha |
+| Datos del ciclo contradictorios entre pantallas | El historial coincide con Inicio ("Actual · día N", periodo estimado) |
+| Textos de 12–13 px | Tamaño mínimo de 14 px |
 
 ## Tecnologías
 
@@ -51,15 +71,18 @@ Los botones *−1 día / +1 día / +7 días* simulan el paso del tiempo para ver
 ## Estructura
 
 ```
-├── index.html
+├── index.html            # landing
+├── app.html              # demo de la app a pantalla completa
+├── privacy.html          # privacidad, términos y eliminación de datos
+├── manifest.webmanifest  # permite agregar la demo a la pantalla de inicio
 ├── css/
-│   ├── base.css        # colores, tipografía y componentes compartidos
-│   └── sections/       # estilos de cada sección
+│   ├── base.css          # colores, tipografía y componentes compartidos
+│   └── sections/         # estilos de cada sección
 ├── js/
-│   ├── menu.js         # menú en celular
-│   ├── faq.js          # preguntas frecuentes
-│   └── try-lumi.js     # demo interactiva Prueba Lumi
-└── assets/images/      # logo e imágenes
+│   ├── menu.js           # menú en celular
+│   ├── faq.js            # preguntas frecuentes
+│   └── try-lumi.js       # lógica de la demo
+└── assets/images/        # logo e íconos
 ```
 
 ## Despliegue (GitHub Pages)
@@ -73,6 +96,7 @@ Los botones *−1 día / +1 día / +7 días* simulan el paso del tiempo para ver
 | Versión | Contenido |
 |---|---|
 | `v1.0.0` | Landing completo según el Figma y demo Prueba Lumi con 35 HU del core. |
+| `v1.1.0` | Demo a pantalla completa para el celular, modo oscuro, página de privacidad y mejoras de la auditoría de UX. |
 
 ## Flujo de trabajo (GitFlow)
 
